@@ -139,7 +139,7 @@ def register():
             password=hash_and_salted_password,
         )
 
-        db.session.add(new_user)
+        db.session.add(new_user
         db.session.commit()
 
         # Log in and authenticate user after adding details to database.
@@ -279,5 +279,5 @@ def delete_post(post_id):
 
 
 if __name__ == "__main__":
-    # app.run()
-    app.run(host='0.0.0.0', port=5000)   #change to app.run() line above for local work
+    app.run()
+    # app.run(host='0.0.0.0', port=5000)   #change to app.run() line above for local work
