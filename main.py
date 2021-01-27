@@ -21,7 +21,8 @@ Bootstrap(app)
 gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False, base_url=None)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///blog.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")  # change to line above for local work
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -63,7 +64,7 @@ class User(UserMixin, db.Model):
     posts = relationship("BlogPost", back_populates="author")
     comments = relationship("Comment", back_populates="comment_author")
 #Line below only required once, when creating DB.
-db.create_all()
+# db.create_all()
 
 class BlogPost(db.Model):
     __tablename__ = "blog_posts" # child
@@ -83,7 +84,7 @@ class BlogPost(db.Model):
 
     #***************Parent Relationship to comment *************#
     comments = relationship("Comment", back_populates="parent_post")
-db.create_all()
+# db.create_all()
 
 class Comment(db.Model):
     __tablename__ = "comments" # child
@@ -96,7 +97,7 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey("blog_posts.id"))
     parent_post = relationship("BlogPost", back_populates="comments")
     text = db.Column(db.Text, nullable=False)
-db.create_all()
+# db.create_all()
 
 @app.route('/')
 def get_all_posts():
@@ -278,4 +279,5 @@ def delete_post(post_id):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    # app.run()
+    app.run(host='0.0.0.0', port=5000)   #change to app.run() line above for local work
