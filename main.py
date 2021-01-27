@@ -64,7 +64,7 @@ class User(UserMixin, db.Model):
     posts = relationship("BlogPost", back_populates="author")
     comments = relationship("Comment", back_populates="comment_author")
 #Line below only required once, when creating DB.
-# db.create_all()
+db.create_all()
 
 class BlogPost(db.Model):
     __tablename__ = "blog_posts" # child
@@ -84,7 +84,7 @@ class BlogPost(db.Model):
 
     #***************Parent Relationship to comment *************#
     comments = relationship("Comment", back_populates="parent_post")
-# db.create_all()
+db.create_all()
 
 class Comment(db.Model):
     __tablename__ = "comments" # child
@@ -97,7 +97,7 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey("blog_posts.id"))
     parent_post = relationship("BlogPost", back_populates="comments")
     text = db.Column(db.Text, nullable=False)
-# db.create_all()
+db.create_all()
 
 @app.route('/')
 def get_all_posts():
