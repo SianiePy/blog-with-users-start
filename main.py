@@ -139,7 +139,7 @@ def register():
             password=hash_and_salted_password,
         )
 
-        db.session.add(new_user
+        db.session.add(new_user)
         db.session.commit()
 
         # Log in and authenticate user after adding details to database.
